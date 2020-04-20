@@ -1,6 +1,6 @@
 {
   "name": "@bayer/ol-kit",
-  "version": "0.0.0-4",
+  "version": "0.2.2",
   "license": "BSD",
   "description": "Mapping components & utils built with openlayers + react",
   "keywords": [
@@ -15,7 +15,7 @@
     {
       "name": "Jake Stäzrad",
       "email": "jake.webb@1904labs.com",
-      "url": "https://github.com/webbhead777"
+      "url": "https://github.com/stazrad"
     },
     {
       "name": "Glen Selle",
@@ -53,6 +53,10 @@
     "url": "git@github.com:MonsantoCo/ol-kit.git"
   },
   "dependencies": {
+    "@turf/bbox": "^6.0.1",
+    "@turf/centroid": "^6.0.2",
+    "@turf/helpers": "^6.1.4",
+    "geostyler-openlayers-parser": "0.21.0",
     "lodash.debounce": "~4.0.8",
     "nanoid": "~2.1.6",
     "prop-types": "~15.7.2",
@@ -93,12 +97,13 @@
     "jest-canvas-mock": "~2.2.0",
     "jest-environment-jsdom-global": "~1.2.0",
     "jest-styled-components": "~7.0.0",
-    "jsdoc": "~3.6.3",
+    "jsdoc": "3.6.3",
     "ol": "4.6.5",
+    "parcel": "2.0.0-alpha.3.2",
     "react": "~16.11.0",
     "react-dom": "~16.11.0",
     "runjs": "^4.4.2",
-    "semver": "^7.1.3",
+    "semver": "^7.3.2",
     "styled-components": "~5.0.0"
   },
   "peerDependencies": {

@@ -2,7 +2,7 @@ import React from 'react'
 import { mount } from 'enzyme'
 import { fireEvent, render, waitFor } from '@testing-library/react'
 import { prettyDOM } from '@testing-library/dom'
-import Map from '../Map'
+import { Map } from 'Map'
 import StamenTerrain from './StamenTerrain'
 import olMap from 'ol/map'
 import olLayerVector from 'ol/layer/vector'
@@ -10,7 +10,7 @@ import olLayerVector from 'ol/layer/vector'
 const TEXT_IDENTIFIER = 'Stamen Terrain'
 
 describe('<StamenTerrain />', () => {
-  it('should render a basic basemap option component', async () => {
+  it.skip('should render a basic basemap option component', async () => {
     const { container } = render(<Map><StamenTerrain /></Map>)
 
     // wait for async child render
