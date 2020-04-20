@@ -8,10 +8,10 @@ import {
   SearchResultContent,
   CheckboxWrapper,
   InfoIcon,
-  I
+  I,
+  Checkbox
 } from './styled'
-import { Checkbox } from 'vmc/layerPanel/LayerPanel/styled.js'
-import MultiMapToggle from 'vmc/beta/lists/MultiMapToggle'
+import MultiMapToggle from '../MultiMapToggle'
 
 /**
  * @example ./example.md

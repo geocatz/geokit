@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 
 // import CkanMetadataModal from 'components/modals/CkanMetadataModal'
 import AddableList from './AddableList'
+import { fetcher } from './utils'
 
 class DataSearchBar extends React.Component {
   constructor (props) {
@@ -31,7 +32,7 @@ class DataSearchBar extends React.Component {
     const { items, persistState } = this.props
 
     if (!items.length) {
-      fetcher('layers')
+      fetcher()
         .then(items => {
           this.setState({ items })
           persistState({ items }, 'CatalogLayers')
@@ -180,7 +181,7 @@ class DataSearchBar extends React.Component {
   }
 }
 
-CatalogLayers.defaultProps = {
+DataSearchBar.defaultProps = {
   items: [],
   translations: {
     'olkit.CatalogSearch.mostPopular': 'Most Popular',
@@ -193,7 +194,7 @@ CatalogLayers.defaultProps = {
   forceUpdate: () => {}
 }
 
-CatalogLayers.propTypes = {
+DataSearchBar.propTypes = {
   /** Object with key/value pairs for translated strings */
   translations: PropTypes.object,
 
@@ -215,4 +216,4 @@ CatalogLayers.propTypes = {
   preferences: PropTypes.object
 }
 
-export default CatalogLayers
+export default DataSearchBar

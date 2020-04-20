@@ -1,4 +1,27 @@
 import styled from 'styled-components'
+import { withStyles } from '@material-ui/core/styles'
+import MaterialCheckbox from '@material-ui/core/Checkbox'
+
+export const Checkbox = withStyles(() => ({
+  checked: {
+    '&$checked': {
+      color: '#152357',
+      padding: '9px',
+      '&:hover': {
+        backgroundColor: 'rgba(1, 8, 90, 0.08)'
+      }
+    }
+  },
+  indeterminate: {
+    '&$indeterminate': {
+      color: '#152357',
+      padding: '9px',
+      '&:hover': {
+        backgroundColor: 'rgba(1, 8, 90, 0.08)'
+      }
+    }
+  }
+}))(MaterialCheckbox)
 
 /** @component */
 export const SearchResultBackground = styled.div`
