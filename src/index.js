@@ -1,6 +1,6 @@
 export { default as Controls, Compass, ZoomControls } from './Controls'
-export { default as Map, connectToMap, updateMapFromUrl, updateUrlFromMap } from './Map'
-export { default as DataSearchBar } from './DataSearchBar'
+// export { default as Map, connectToMap, updateMapFromUrl, updateUrlFromMap } from './Map'
+export * from './DataSearchBar'
 export * from './Controls'
 export * from './Map'
 export * from './Popup'
