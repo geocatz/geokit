@@ -58,6 +58,7 @@
     "@turf/centroid": "^6.0.2",
     "@turf/helpers": "^6.1.4",
     "geostyler-openlayers-parser": "0.21.0",
+    "jszip": "^3.4.0",
     "lodash.debounce": "~4.0.8",
     "nanoid": "~2.1.6",
     "prop-types": "~15.7.2",

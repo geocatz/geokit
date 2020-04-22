@@ -63,7 +63,7 @@ class AddableList extends React.Component {
       this.setState({
         items: nextProps.items,
         filteredItems: nextProps.items.sort(sortFunc).filter(item =>
-          item.title.toLowerCase().includes(this.state.query.toLowerCase()))
+          item.title ? item.title.toLowerCase().includes(this.state.query.toLowerCase()) : item.name.toLowerCase().includes(this.state.query.toLowerCase()))
       })
     }
   }

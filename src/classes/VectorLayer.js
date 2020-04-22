@@ -25,7 +25,7 @@ class VectorLayer extends olLayerVector {
     this.defaultStyles = []
     this._defaultStylesCache = []
     this.isVectorLayer = true
-    this._setInitialStyle()
+    if (!opts.style) this._setInitialStyle()
     this.setDefaultVectorStyles()
 
     return this
@@ -148,7 +148,7 @@ class VectorLayer extends olLayerVector {
 
   _setInitialStyle () {
     let style = {}
-    const geomType = this.getSource().getFeatures()[0].getGeometry()
+    const geomType = this.getSource?.()?.getFeatures?.()?.[0]?.getGeometry()
 
     if (geomType instanceof olGeomPoint || geomType instanceof olGeomMultiPoint) {
       style = [new olStyleStyle({
