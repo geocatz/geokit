@@ -70,7 +70,7 @@ export const getLayersAndFeaturesForEvent = (event, opts = {}) => {
       // layer.getLayerState().managed is an undocumented ol prop that lets us ignore select's vector layer
       // _ol_kit_basemap is set to true on all basemaps from ol-kit
       const features = []
-      const sourceFeatures = layer.getSource().getFeatures()
+      const sourceFeatures = layer?.getSource?.()?.getFeatures?.()
 
       sourceFeatures.forEach(sourceFeature => {
         // check if any feature on layer source is also at click location
