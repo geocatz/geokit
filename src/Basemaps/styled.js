@@ -15,8 +15,7 @@ export const BasemapSliderContainer = styled.div`
   width: 75px;
   height: 75px;
   border-radius: 3px;
-  border: ${props => props.variation === 'dark' ? '3px solid #4d4d4d' : '3px solid white'};
-  box-shadow: ${props => props.noBoxShadow ? 'none' : '1px 2px 5px #757575'};
+  box-shadow: ${props => props.noBoxShadow ? 'none' : '0 2px 4px rgba(0,0,0,0.2), 0 -1px 0px rgba(0,0,0,0.02)'};
   transition: .2s;
   z-index: ${props => props.zIndex ? `${props.zIndex}` : '5'};
   cursor: pointer;
@@ -27,10 +26,11 @@ export const BasemapOption = styled.div`
   cursor: pointer;
   width: 100%;
   height: 100%;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2), 0 -1px 0px rgba(0,0,0,0.02);
   transition: all 0.3s cubic-bezier(.25,.8,.25,1);
   position: relative;
-  border-radius: 3px;
+  border-radius: 5px;
+  overflow: hidden;
 `
 
 export const BasemapThumbnail = styled.div`

@@ -84,7 +84,6 @@ class BasemapContainer extends Component {
             noBoxShadow={i !== 0}>
             <BasemapOption>
               <BasemapThumbnail thumbnail={basemap.props.thumbnail} />
-              <Label>{translations[`_ol_kit.${translationKey(basemap.key)}.title`]}</Label>
             </BasemapOption>
           </BasemapSliderContainer>
         )
