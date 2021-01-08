@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import Event from 'ol/events/Event'
-import en from 'locales/en'
+import en from 'locales'
 import { sanitizeProperties } from '../utils'
 import { connectToContext } from 'Provider'
 import { PopupActionCopyWkt } from 'Popup/PopupActions/PopupActionCopyWkt'

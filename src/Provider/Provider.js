@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import en from 'locales/en'
+import en from 'locales'
 import ugh from 'ugh'
 
 // context is only created when <Provider> is implemented (see constructor)

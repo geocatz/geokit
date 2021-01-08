@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 import { connectToContext } from 'Provider'
 import { PopupActionItem } from 'Popup'
-import en from  'locales/en'
+import en from  'locales'
 import { copyWktToClipbard } from './utils'
 
 /**

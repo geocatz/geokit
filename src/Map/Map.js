@@ -7,7 +7,7 @@ import MapLogo from './MapLogo'
 import { createMap, createSelectInteraction, updateMapFromUrl, updateUrlFromMap } from './utils'
 import { StyledMap } from './styled'
 import { connectToContext } from 'Provider'
-import en from 'locales/en'
+import en from 'locales'
 import ugh from 'ugh'
 
 /**

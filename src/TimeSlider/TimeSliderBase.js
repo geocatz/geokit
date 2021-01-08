@@ -17,7 +17,7 @@ import IconButton from '@material-ui/core/IconButton'
 import CloseIcon from '@material-ui/icons/Close'
 import SyncIcon from '@material-ui/icons/Sync'
 
-import en from 'locales/en'
+import en from 'locales'
 import { connectToContext } from 'Provider'
 import {
   Container,

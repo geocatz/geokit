@@ -2,7 +2,7 @@ import React from 'react'
 import { fireEvent, render } from '@testing-library/react'
 import olFeature from 'ol/Feature'
 import olPoint from 'ol/geom/Point'
-import translations from 'locales/en'
+import translations from 'locales'
 import { createSelectInteraction } from 'Map'
 import { PopupDefaultInsert } from 'Popup'
 

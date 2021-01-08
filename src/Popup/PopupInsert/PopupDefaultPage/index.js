@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
-import en from 'locales/en'
+import en from 'locales'
 import { connectToContext } from 'Provider'
 import CLOSE from 'images/close_icon.svg'
 import LEFT_ARROW from 'images/left_arrow.svg'

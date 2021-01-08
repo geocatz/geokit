@@ -1,6 +1,6 @@
 import React from 'react'
 import { render, fireEvent, waitFor } from '@testing-library/react'
-import translations from 'locales/en'
+import translations from 'locales'
 import olMap from 'ol/Map'
 import LayerStyler from './LayerStyler'
 import VectorLayer from '../classes/VectorLayer'
