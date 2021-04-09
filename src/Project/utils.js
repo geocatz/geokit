@@ -12,6 +12,21 @@ import { VectorLayer } from 'classes'
 import ugh from 'ugh'
 import { version } from '../../package.json'
 
+const createHtmlString = data => {
+  return `
+  <!doctype html>
+    <head>
+      <script>
+        window.location.href = \`${window.location.href.split('?')[0]}?project=\${window.location.href}\`
+      </script>
+    </head>
+    <body>
+      <div id="data">\`${JSON.stringify(data)}\`</div>
+    </body>
+  </html>
+  `
+}
+
 /**
  * A utility that takes map state and outputs it as a project file
  * @function
@@ -52,7 +67,7 @@ export async function createProject (map) {
     layers
   }
 
-  return outputFile
+  return createHtmlString(outputFile)
 }
 
 /**

@@ -15,34 +15,40 @@ class ProjectMenu extends React.Component {
 
     const projectFile = await createProject(map)
     // download the project file to local machine
-    const dataString = `data:text/jsoncharset=utf-8,${encodeURIComponent(JSON.stringify(projectFile))}`
+    console.log(projectFile) // eslint-disable-line no-console
+    const dataString = `data:text/htmlcharset=utf-8,${encodeURIComponent(projectFile)}`
     const downloadAnchorElement = document.getElementById('_ol_kit_project_download_anchor')
 
     downloadAnchorElement.setAttribute('href', dataString)
-    downloadAnchorElement.setAttribute('download', 'ol_kit_project.olkproj')
+    downloadAnchorElement.setAttribute('download', 'ol_kit_project.html')
     downloadAnchorElement.click()
   }
 
   onLoadProject = async () => {
+    console.log('loading') // eslint-disable-line no-console
     const { map } = this.props
     const upload = document.getElementById('myFile')
     const reader = new FileReader()
 
     reader.addEventListener('load', e => {
       const data = e.target.result
-      const project = JSON.parse(data)
+      console.log(data) // eslint-disable-line no-console
+      const el = document.createElement('html')
+      el.innerHTML = data
+      const project = el.getElementsByTagName('div')[0].innerHTML
+      const projectString = project.substring(1, project.length - 1)
 
-      loadProject(map, project)
+      loadProject(map, JSON.parse(projectString))
     })
     reader.readAsBinaryString(upload.files[0])
   }
 
   render () {
     return (
-      <ProjectMenuContainer>
+      <ProjectMenuContainer id={'projects'}>
         <a id='_ol_kit_project_download_anchor' style={{ display: 'none' }}></a>
         <button id='_ol_kit_create_project' onClick={this.onCreateProject}>Create a project</button>
-        <input type='file' id='myFile' accept='.olkproj' onChange={this.onLoadProject} />
+        <input type='file' id='myFile' accept='.html' onChange={this.onLoadProject} />
       </ProjectMenuContainer>
     )
   }
