@@ -119,6 +119,7 @@ export const getLayersAndFeaturesForEvent = (event, opts = {}) => {
     if (layer.get('_ol_kit_parent')?.isGeoserverLayer) {
       // this logic handles clicks on GeoserverLayers
       const geoserverLayer = layer.get('_ol_kit_parent')
+      console.log(geoserverLayer)
       const coords = map.getCoordinateFromPixel(pixel)
       const wmsPromise = new Promise(async resolve => { // eslint-disable-line no-async-promise-executor
         const rawFeatures = await geoserverLayer.fetchFeaturesAtClick(coords, map)

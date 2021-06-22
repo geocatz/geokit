@@ -75,7 +75,7 @@ class Map extends React.Component {
     }
 
     // setup select interactions for the map
-    this.initializeSelect(this.map)
+    // this.initializeSelect(this.map)
 
     // callback for <Provider> if it is mounted as hoc
     const mapConfig = {
@@ -114,6 +114,8 @@ class Map extends React.Component {
   initializeSelect = map => {
     const { selectInteraction } = this.props
 
+    console.log('ol-kit selection', selectInteraction)
+
     if (selectInteraction) {
       // if select is passed as a prop always use that one first
       this.selectInteraction = selectInteraction
@@ -128,6 +130,8 @@ class Map extends React.Component {
       .filter(interaction => interaction._ol_kit_interaction_type !== '_ol_kit_layer_panel_hover')
       // this checks if the select interaction created or passed in is the same instance on the map and never double adds
       .find(interaction => interaction === this.selectInteraction)
+
+      console.log('selectInteractionOnMap', selectInteractionOnMap)
 
     // do not double add the interaction to the map
     if (!selectInteractionOnMap) map.addInteraction(this.selectInteraction)

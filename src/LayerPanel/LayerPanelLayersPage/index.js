@@ -84,10 +84,10 @@ class LayerPanelLayersPage extends Component {
       })
     })
 
-    this.selectInteraction = createSelectInteraction({ _ol_kit_interaction_type: '_ol_kit_layer_panel_hover', style: [style] })
+    // this.selectInteraction = createSelectInteraction({ _ol_kit_interaction_type: '_ol_kit_layer_panel_hover', style: [style] })
 
     // Add a second select interaction to show hover states
-    map.addInteraction(this.selectInteraction)
+    // map.addInteraction(this.selectInteraction)
   }
 
   selectFeatures = features => {
