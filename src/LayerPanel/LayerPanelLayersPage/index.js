@@ -289,6 +289,8 @@ class LayerPanelLayersPage extends Component {
         map.getView().fit(source.getExtent(), map.getSize())
       }
     }).catch(err => {
+      console.error(err)
+      throw err
     })
   }
 

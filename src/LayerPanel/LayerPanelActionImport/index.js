@@ -20,7 +20,11 @@ class LayerPanelActionImport extends Component {
     const file = document.getElementById(id).files[0]
 
     if (this.validFile(file)) {
-      this.props.handleImport(file)
+      try {
+        this.props.handleImport(file)
+      } catch (err) {
+        this.props.handleError(err)
+      }
     }
 
     // clear the file input -- otherwise file with same name as last imported will not trigger event
@@ -62,6 +66,9 @@ LayerPanelActionImport.propTypes = {
     display: PropTypes.string,
     extension: PropTypes.string
   })).isRequired,
+
+  /** A callback function that returns an error when the file import fails */
+  handleImport: PropTypes.func.isRequired,
 
   /** A callback function that returns the file thats being imported */
   handleImport: PropTypes.func.isRequired,
@@ -105,7 +112,8 @@ LayerPanelActionImport.defaultProps = {
     }
   ],
   handleMenuClose: () => {},
-  handleImport: () => {}
+  handleImport: () => {},
+  handleError: () => {}
 }
 
 export default connectToContext(LayerPanelActionImport)
