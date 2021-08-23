@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { ButtonContainer } from './styled'
+import { ButtonContainer, ContinuousContainer } from './styled'
 import Line from './Line'
 import Box from './Box'
 import Circle from './Circle'
@@ -20,6 +20,7 @@ import { fromCircle } from 'ol/geom/Polygon'
 import olCollection from 'ol/Collection'
 import { connectToContext } from 'Provider'
 import { getStyledFeatures } from './utils'
+import ContinuousDraw from './ContinuousDraw'
 
 const OL_DRAW_TYPES = [...Object.values(olGeomTypes)]
 
@@ -143,20 +144,39 @@ class Draw extends React.Component {
   }
 
   handleDrawFinish = (feature) => {
-    const { onDrawFinish, map } = this.props
+    const { onDrawFinish, map, continuousDrawEnabled } = this.props
     const { interactions } = this.state
 
     // we only have a feature when the draw is 'finished' via OL
     // and therefore there is a drawend event with a feature
+    let finishButtonPressed = false
     const haveFeature = feature instanceof olFeature
     const drawInteraction = this.getDrawInteraction()
 
     // if we don't have a featue (user hit the DOM finish button)
     // finish the drawing (this will trigger the drawend event)
-    if (drawInteraction && !haveFeature) drawInteraction.finishDrawing()
+    if (drawInteraction && !haveFeature) {
+      finishButtonPressed = true
 
-    interactions.forEach(interaction => map.removeInteraction(interaction))
-    this.setState({ interactions: [], type: null, measureFeature: null })
+      if (drawInteraction.get('type') === 'LineString' || drawInteraction.get('type') === 'Polygon') {
+        drawInteraction.finishDrawing()
+      }
+    }
+
+    if (!continuousDrawEnabled) {
+      interactions.forEach(interaction => map.removeInteraction(interaction))
+      this.setState({ interactions: [], type: null, measureFeature: null, features: [], finishButtonPressed: false })
+    } else {
+      const updatedFeatures = [...this.state.features, feature]
+
+      this.setState({ features: updatedFeatures })
+      if (finishButtonPressed) {
+        this.handleContinuousDrawEnd(updatedFeatures)
+
+        return
+      }
+    }
+
     const geom = feature.getGeometry()
     const geomIsCircle = geom instanceof olGeomCircle
 
@@ -192,7 +212,7 @@ class Draw extends React.Component {
 
   render () {
     const { type, freehand, geometryFunction, interactions } = this.state
-    const { translations } = this.props
+    const { translations, updateContinuousDrawEnable } = this.props
 
     return (
       <div data-testid='Draw.container'>
@@ -204,7 +224,7 @@ class Draw extends React.Component {
 
             return moddedChild
           })
-          : <ButtonContainer>
+          : <ContinuousContainer><ButtonContainer>
             <Point addInteraction={this.addInteraction} type={type}
               tooltipTitle={translations['_ol_kit.draw.pointTooltip']} />
             <Line addInteraction={this.addInteraction} type={type}
@@ -217,7 +237,12 @@ class Draw extends React.Component {
               geometryFunction={geometryFunction} tooltipTitle={translations['_ol_kit.draw.boxTooltip']} />
             <Freehand addInteraction={this.addInteraction} type={type} freehand={freehand}
               tooltipTitle={translations['_ol_kit.draw.freehandTooltip']} />
-          </ButtonContainer>}
+          </ButtonContainer>
+          <ContinuousDraw
+              compact={true}
+              translations={translations}
+              updateContinuousDrawEnable={updateContinuousDrawEnable} />
+              </ContinuousContainer>}
         {
           (Array.isArray(interactions) && interactions.length) ? (<DrawToolbar onFinish={this.handleDrawFinish} onCancel={this.handleDrawCancel} />) : null // eslint-disable-line
         }
