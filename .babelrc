@@ -1,0 +1,16 @@
+// this is only used by better-docs to transpile src -- until this gets addressed: https://github.com/SoftwareBrothers/better-docs/issues/63
+{
+  "presets": [
+    "@babel/preset-env",
+    "@babel/preset-react"
+  ],
+  "plugins": [
+    ["@babel/plugin-transform-runtime"],
+    ["inline-react-svg"],
+    ["module-resolver", {
+      "root": [
+        "src/"
+      ]
+    }]
+  ]
+}

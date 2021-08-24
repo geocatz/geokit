@@ -38,7 +38,8 @@ class Draw extends React.Component {
       type: '',
       freehand: false,
       feature: null,
-      interactions: []
+      interactions: [],
+      features: []
     }
     this.escFunction = this.escFunction.bind(this)
   }
@@ -167,6 +168,7 @@ class Draw extends React.Component {
       interactions.forEach(interaction => map.removeInteraction(interaction))
       this.setState({ interactions: [], type: null, measureFeature: null, features: [], finishButtonPressed: false })
     } else {
+      // THIS IS THE ERROR
       const updatedFeatures = [...this.state.features, feature]
 
       this.setState({ features: updatedFeatures })
@@ -210,6 +212,15 @@ class Draw extends React.Component {
     this.setState({ interactions: [], type: null, feature: null })
   }
 
+  handleContinuousDrawEnd = (features) => {
+    const { onContinuousDrawFinish, map } = this.props
+    const { interactions } = this.state
+
+    interactions.forEach(interaction => map.removeInteraction(interaction))
+    onContinuousDrawFinish(features)
+    this.setState({ interactions: [], type: null, measureFeature: null, features: [] })
+  }
+
   render () {
     const { type, freehand, geometryFunction, interactions } = this.state
     const { translations, updateContinuousDrawEnable } = this.props
@@ -224,25 +235,26 @@ class Draw extends React.Component {
 
             return moddedChild
           })
-          : <ContinuousContainer><ButtonContainer>
-            <Point addInteraction={this.addInteraction} type={type}
-              tooltipTitle={translations['_ol_kit.draw.pointTooltip']} />
-            <Line addInteraction={this.addInteraction} type={type}
-              freehand={freehand} tooltipTitle={translations['_ol_kit.draw.lineTooltip']} />
-            <Polygon addInteraction={this.addInteraction} type={type}
-              tooltipTitle={translations['_ol_kit.draw.polygonTooltip']} />
-            <Circle addInteraction={this.addInteraction} type={type}
-              geometryFunction={geometryFunction} tooltipTitle={translations['_ol_kit.draw.circleTooltip']} />
-            <Box addInteraction={this.addInteraction} type={type}
-              geometryFunction={geometryFunction} tooltipTitle={translations['_ol_kit.draw.boxTooltip']} />
-            <Freehand addInteraction={this.addInteraction} type={type} freehand={freehand}
-              tooltipTitle={translations['_ol_kit.draw.freehandTooltip']} />
-          </ButtonContainer>
-          <ContinuousDraw
-              compact={true}
-              translations={translations}
-              updateContinuousDrawEnable={updateContinuousDrawEnable} />
-              </ContinuousContainer>}
+          : <div>
+              <ButtonContainer>
+                <Point addInteraction={this.addInteraction} type={type}
+                  tooltipTitle={translations['_ol_kit.draw.pointTooltip']} />
+                <Line addInteraction={this.addInteraction} type={type}
+                  freehand={freehand} tooltipTitle={translations['_ol_kit.draw.lineTooltip']} />
+                <Polygon addInteraction={this.addInteraction} type={type}
+                  tooltipTitle={translations['_ol_kit.draw.polygonTooltip']} />
+                <Circle addInteraction={this.addInteraction} type={type}
+                  geometryFunction={geometryFunction} tooltipTitle={translations['_ol_kit.draw.circleTooltip']} />
+                <Box addInteraction={this.addInteraction} type={type}
+                  geometryFunction={geometryFunction} tooltipTitle={translations['_ol_kit.draw.boxTooltip']} />
+                <Freehand addInteraction={this.addInteraction} type={type} freehand={freehand}
+                  tooltipTitle={translations['_ol_kit.draw.freehandTooltip']} />
+              </ButtonContainer>
+              <ContinuousDraw
+                compact={true}
+                translations={translations}
+                updateContinuousDrawEnable={updateContinuousDrawEnable} />
+            </div>}
         {
           (Array.isArray(interactions) && interactions.length) ? (<DrawToolbar onFinish={this.handleDrawFinish} onCancel={this.handleDrawCancel} />) : null // eslint-disable-line
         }
@@ -307,7 +319,8 @@ Draw.defaultProps = {
   onDrawFinish: () => {},
   onDrawBegin: () => {},
   onInteractionAdded: () => {},
-  onDrawCancel: () => {}
+  onDrawCancel: () => {},
+  onContinuousDrawFinish: () => {},
 }
 
 export default connectToContext(Draw)
