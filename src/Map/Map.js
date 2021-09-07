@@ -52,7 +52,8 @@ class Map extends React.Component {
       updateUrlFromView,
       updateViewFromUrl,
       urlViewParam,
-      dragZoomboxStyle
+      dragZoomboxStyle,
+      contextProps
     } = this.props
     const onMapReady = map => {
       // pass map back via callback prop
@@ -83,7 +84,8 @@ class Map extends React.Component {
       map: this.map,
       mapId: this.target,
       selectInteraction: this.selectInteraction,
-      translations // this can be hoisted to <Provider> only in the future
+      translations, // this can be hoisted to <Provider> only in the future
+      ...contextProps
     }
 
     addMapToContext(mapConfig)
