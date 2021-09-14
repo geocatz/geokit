@@ -17,6 +17,8 @@ import en from 'locales/en'
 import ugh from 'ugh'
 import olInteractionSelect from 'ol/interaction/Select'
 
+let INIT_INIT = false
+
 /**
  * A Reactified ol.Map wrapper component
  * @component
@@ -56,17 +58,25 @@ class Map extends React.Component {
       contextProps
     } = this.props
     const onMapReady = map => {
-      // pass map back via callback prop
-      const initCallback = onMapInit(map)
-      // if onMapInit prop returns a promise, render children after promise is resolved
-      const isPromise = !!initCallback && typeof initCallback.then === 'function'
+      if (INIT_INIT) {
+        console.log('INIT INIT failed')
 
-      // update AFTER onMapInit to get map into the state/context
-      isPromise
-        ? initCallback
-          .catch(e => ugh.error('Error caught in \'onMapInit\'', e))
-          .finally(() => this.setState({ mapInitialized: true })) // always initialize app
-        : this.setState({ mapInitialized: true })
+        return false
+      } else {
+        // pass map back via callback prop
+        const initCallback = onMapInit(map)
+        // if onMapInit prop returns a promise, render children after promise is resolved
+        const isPromise = !!initCallback && typeof initCallback.then === 'function'
+
+        // update AFTER onMapInit to get map into the state/context
+        isPromise
+          ? initCallback
+            .catch(e => ugh.error('Error caught in \'onMapInit\'', e))
+            .finally(() => this.setState({ mapInitialized: true })) // always initialize app
+          : this.setState({ mapInitialized: true })
+      }
+
+      INIT_INIT = true
     }
 
     // if no map was passed, create the map
@@ -87,6 +97,8 @@ class Map extends React.Component {
       translations, // this can be hoisted to <Provider> only in the future
       ...contextProps
     }
+
+    console.log(contextProps)
 
     addMapToContext(mapConfig)
 
